@@ -33,8 +33,26 @@ In order to better procrastinate on my master&#39;s thesis (an analysis of <a hr
 <p>Pretty cool, right? A five-bit, square representation of Genesis 1 encoded this way looks like this:
 <p><img width="100%" src="../assets/img/genesis_1_bw.png" alt="alt"></p>
 From left to right it reads:</p>
-<p>|00001|10011|00000|10100|01001|10101|...|
-|ב|ר|א|ש|י|ת|...|</p>
+<table>
+    <tr>
+        <td>00001</td>
+        <td>10011</td>
+        <td>00000</td>
+        <td>10100</td>
+        <td>01001</td>
+        <td>10101</td>
+        <td>...</td>
+    </tr>
+    <tr>
+        <td>ב</td>
+        <td>ר</td>
+        <td>א</td>
+        <td>ש</td>
+        <td>י</td>
+        <td>ת</td>
+        <td>...</td>
+    </tr>
+</table>
 <p>Cool as this looks (to me anyway...), our eyes are really quite ill-equipped to read any of it. If you want you can sit there and decode byte by byte, but its very difficult to find patterns. But if we introduce color, patterns start to emerge.</p>
 <p>So I decided to do the same basic thing but represent each of the 22 letters of the Hebrew alphabet with a different color. As luck would have it, <a href="https://gist.github.com/Myndex/997244b95d84788df96f4aab8b9edeb1">in 1965 one Kenneth Kelly defined a 22-color palette designed for maximum contrast</a>. I modified my code to use the colorful .ppm format, and began producing representations like this (read right to left):
 <p><img width="100%" src="../assets/img/genesis_1.png" alt="alt"></p>
