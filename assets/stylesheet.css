@@ -1,3 +1,20 @@
 p {
 	line-height: 30px;
 }
+
+.text {
+	min-width: 100px;
+	max-width: 700px; 
+	margin: 0 auto;
+}
+
+@media only screen and (max-width: 480px) {
+    .text {
+        margin-left: 0 !important;
+        margin-right: 0 !important;    
+        max-width: 100% !important;     
+    }
+}
+img {
+	max-width: 100%;
+}

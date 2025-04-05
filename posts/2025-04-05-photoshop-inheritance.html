@@ -1,0 +1,105 @@
+<HTML>
+	<head>
+		<meta charset="utf-8">
+		<title>Inheritance in Photoshop 1.0.1</title>
+		<link rel="stylesheet" href="../assets/stylesheet.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<div class="text">
+			<a href="..">←</a>
+			<h1>Inheritance in Photoshop 1.0.1</h1>
+			<p>This summer, I picked up the editors Bajohr and Krajewski's really excellent volume
+			<em><a href="https://www.matthes-seitz-berlin.de/buch/quellcodekritik.html">Quellcodekritik:
+					Zur Philologie von Algorithmen</em></a> (Source Code Critique: On the
+			Philology of Algorithms), published by the August Verlag.
+			<p style="text-align:center"><img src="../assets/img/quellcode_cover.jpg" alt="cover" /></p>
+			<p>The volume is split up into two sections: "The Sequential Paradigm," and "The Connectionist
+			Paradigm" (from now on all translations my own). The former deals with a more traditional source 
+			code hermeneutics (if there is such a thing), while the latter is devoted to the less-scrutable
+			world of machine learning.</p>
+			<p>The third article in the first section, "Who do you read 100,000 lines of code?" by
+			Till A. Heilmann, 
+			is a reading of Photoshop 1.0.1. The primary question of his essay is what it says on the tin:
+			how can you perform a good reading of the voluminous source code of a commercial program? One 
+			answer is: the reading should be distant. Close reading of such a corpus
+			is difficult, and the returns of such a venture are likely to diminish rapidly. Heilmann gives
+			us methods for performing such a reading on such a corpus. For example, he splits the source 
+			code up into separate lines, and finds that nearly half the lines in the section written in 
+			assembly are empty, compared to about a third of the lines in the section written in Objective
+			Pascal. The assembly section is also significantly more commented than the Pascal section. This
+			is something like an exercise in comparative code stylistics: less-legible assembly requires more
+			explanatory aids to be understood (both the structuring element of empty lines and the commentary)
+			than relatively self-documenting Pascal.</p>
+			<p>Of particular interest to me was the final section, which dealt with the inheritance 
+			relationships of objects in the code. Maybe this was because I read Galloway's
+			<a href="https://www.jstor.org/stable/10.1086/668529"><em>The Poverty of Philosophy</em></a>
+			not long before, which also deals with inheritance and object-orientedness in relation 
+			to contemporary philosophy. In the Photoshop code, Heilmann finds 12 separate object geneologies, each tracing back
+			to an objec from MacApp, "the then-official framework which Apple provided for the development
+			of Macintosh programs with Object Pascal" (122). As laconic as these geneologies are, they allow
+			do give us some insight into the architecture of the program. One might ask, as Heilmann suggests:
+			how many parents does each object have? What are the rudimentary commands, which Photoshop implements?
+			What are the frames and perspectives with which Photoshop is projected on the user's screen?</p>
+			<p>And then came the kicker. Heilmann writes, leaving it as an exercise to the reader, "With a
+			little programming skill, these lists could be displayed as a tree diagram, or in some other 
+			graphic form."</p>
+			<p>So I decided to take on the challenge, which ended up being a little more challenging than
+			I thought it would be, as is always the case for visualization. I first 
+			<a href="https://computerhistory.org/blog/adobe-photoshop-source-code/">downloaded the source code</a>
+			and, following Heilmann's example, (though using Python instead of Bash) extracted all of its object
+			definitions, the parents and children in a dictionary. I then iterated through this dictionary, and
+			using the Python library <a href="https://networkx.org/">NetworkX</a>, produced a directed graph of
+			all the geneaologies. As Heilmann points out, there are actually 12 separate geneologies, i.e. 12 
+			disconnected subgraphs in the big graph. I separated these out, and started visualizing using 
+			matplotlib. This worked reasonably well for the smaller graphs, but the larger graphs (especially
+			TCommand) had so much overlap that they were illegible. Eventually, I found out that you can export
+			NetworkX graphs to the .dot format, and produce tree diagrams in this way. The resulting graphics
+			are a little plain, but they certainly get the job done.</p>
+			<p>First, behold the full graph (with the 12 separate subgraphs) in all its untamed glory</p>
+			<p style="text-align:center"><img src="../assets/img/full.png" alt="full" width="100%"/></p>
+			<p>You're probably gonna wanna open that in a new tab... Next follow the 12 subgraphs,
+			visualized separately:</p>
+			<p style="text-align:center"><img src="../assets/img/00.png" alt="full" /></p>
+			<br>
+			<br>
+			<p style="text-align:center"><img src="../assets/img/01.png" alt="full" /></p>
+			<br>
+			<br>
+			<p style="text-align:center"><img src="../assets/img/02.png" alt="full" /></p>
+			<br>
+			<br>
+			<p style="text-align:center"><img src="../assets/img/03.png" alt="full" /></p>
+			<br>
+			<br>
+			<p style="text-align:center"><img src="../assets/img/04.png" alt="full" /></p>
+			<br>
+			<br>
+			<p style="text-align:center"><img src="../assets/img/05.png" alt="full" /></p>
+			<br>
+			<br>
+			<p style="text-align:center"><img src="../assets/img/06.png" alt="full" /></p>
+			<br>
+			<br>
+			<p style="text-align:center"><img src="../assets/img/07.png" alt="full" /></p>
+			<br>
+			<br>
+			<p style="text-align:center"><img src="../assets/img/08.png" alt="full" /></p>
+			<br>
+			<br>
+			<p style="text-align:center"><img src="../assets/img/09.png" alt="full" /></p>
+			<br>
+			<br>
+			<p style="text-align:center"><img src="../assets/img/10.png" alt="full" /></p>
+			<br>
+			<br>
+			<p style="text-align:center"><img src="../assets/img/11.png" alt="full" /></p>
+			<p>As you an see, and as Heilmann notes, there's a lot of variation in the size of these
+			graphs. Some objects, like <em>TStdPrintHandler</em>, are the parent of only one
+			other object, whereas others, like <em>TCommand</em>, produce six generations of offspring.
+			If we wanted to go really far back, we'd have to include all the object declarations
+			from MacApp. I suspect then we'd see all of these geneologies reunited, in a sort of 
+			Object Pascal ingathering of the exiles. We will have to wait on that.</p>
+		</div>
+	</body>
+</HTML>
