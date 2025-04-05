@@ -11,14 +11,14 @@
 			<h1>Geneologies of Inheritance in Photoshop 1.0.1</h1>
 			<p>This summer, I picked up the editors Bajohr and Krajewski's really excellent volume
 			<em><a href="https://www.matthes-seitz-berlin.de/buch/quellcodekritik.html">Quellcodekritik:
-					Zur Philologie von Algorithmen</em></a> (Source Code Critique: On the
-			Philology of Algorithms), published by the August Verlag.
+					Zur Philologie von Algorithmen</em></a> (<em>Source Code Critique: On the
+				Philology of Algorithms</em>), published by the August Verlag.
 			<p style="text-align:center"><img src="../assets/img/quellcode_cover.jpg" alt="cover" /></p>
 			<p>The volume is split up into two sections: "The Sequential Paradigm," and "The Connectionist
 			Paradigm" (from now on all translations my own). The former deals with a more traditional source 
 			code hermeneutics (if there is such a thing), while the latter is devoted to the less-scrutable
 			world of machine learning.</p>
-			<p>The third article in the first section, "Who do you read 100,000 lines of code?" by
+			<p>The third article in the first section, "How do you read 100,000 lines of code?" by
 			Till A. Heilmann, 
 			is a reading of Photoshop 1.0.1. The primary question of his essay is what it says on the tin:
 			how can you perform a good reading of the voluminous source code of a commercial program? One 
@@ -36,8 +36,8 @@
 			<a href="https://www.jstor.org/stable/10.1086/668529"><em>The Poverty of Philosophy</em></a>
 			not long before, which also deals with inheritance and object-orientedness in relation 
 			to contemporary philosophy. In the Photoshop code, Heilmann finds 12 separate object geneologies, each tracing back
-			to an objec from MacApp, "the then-official framework which Apple provided for the development
-			of Macintosh programs with Object Pascal" (122). As laconic as these geneologies are, they allow
+			to an object from MacApp, "the then-official framework which Apple provided for the development
+			of Macintosh programs with Object Pascal" (122). As laconic as these geneologies are, they 
 			do give us some insight into the architecture of the program. One might ask, as Heilmann suggests:
 			how many parents does each object have? What are the rudimentary commands, which Photoshop implements?
 			What are the frames and perspectives with which Photoshop is projected on the user's screen?</p>
@@ -47,15 +47,15 @@
 			<p>So I decided to take on the challenge, which ended up being a little more challenging than
 			I thought it would be, as is always the case for visualization. I first 
 			<a href="https://computerhistory.org/blog/adobe-photoshop-source-code/">downloaded the source code</a>
-			and, following Heilmann's example, (though using Python instead of Bash) extracted all of its object
-			definitions, the parents and children in a dictionary. I then iterated through this dictionary, and
+			and, following Heilmann's example (though using Python instead of Bash), extracted all of its object
+			definitions, saving the parents and children in a dictionary. I then iterated through this dictionary, and
 			using the Python library <a href="https://networkx.org/">NetworkX</a>, produced a directed graph of
 			all the geneaologies. As Heilmann points out, there are actually 12 separate geneologies, i.e. 12 
 			disconnected subgraphs in the big graph. I separated these out, and started visualizing using 
 			matplotlib. This worked reasonably well for the smaller graphs, but the larger graphs (especially
-			TCommand) had so much overlap that they were illegible. Eventually, I found out that you can export
+			<em>TCommand</em>) had so much overlap that they were illegible. Eventually, I found out that you can export
 			NetworkX graphs to the .dot format, and produce tree diagrams in this way. The resulting graphics
-			are a little plain, but they certainly get the job done.</p>
+			are a little plain, but they I think they get the job done.</p>
 			<p>First, behold the full graph (with the 12 separate subgraphs) in all its untamed glory</p>
 			<p style="text-align:center"><img src="../assets/img/full.png" alt="full" width="100%"/></p>
 			<p>You're probably gonna wanna open that in a new tab... Next follow the 12 subgraphs,
@@ -94,7 +94,7 @@
 			<br>
 			<br>
 			<p style="text-align:center"><img src="../assets/img/11.png" alt="full" /></p>
-			<p>As you an see, and as Heilmann notes, there's a lot of variation in the size of these
+			<p>As you can see, there's a lot of variation in the size of these
 			graphs. Some objects, like <em>TStdPrintHandler</em>, are the parent of only one
 			other object, whereas others, like <em>TCommand</em>, produce six generations of offspring.
 			If we wanted to go really far back, we'd have to include all the object declarations
