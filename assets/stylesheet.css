@@ -8,6 +8,11 @@ p {
 	margin: 0 auto;
 }
 
+.klejb {
+	font-size: 20px;
+	text-align: center;
+}
+
 @media only screen and (max-width: 480px) {
 	.text {
 		margin-left: 3% !important;
@@ -21,4 +26,11 @@ p {
 }
 img {
 	max-width: 100%;
+}
+a {
+	color: #41754c;
+}
+li {
+	list-style-image: url('assets/img/bullet.png');
+	padding-top: 5px;
 }
