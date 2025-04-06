@@ -9,11 +9,15 @@ p {
 }
 
 @media only screen and (max-width: 480px) {
-    .text {
-        margin-left: 3% !important;
-        margin-right: 3% !important;    
-        max-width: 100% !important;     
-    }
+	.text {
+		margin-left: 3% !important;
+		margin-right: 3% !important;    
+		max-width: 100% !important;     
+	}
+
+	.klejb {
+		font-size: 1em !important;
+	}
 }
 img {
 	max-width: 100%;
