@@ -31,6 +31,6 @@ a {
 	color: #41754c;
 }
 li {
-	list-style-image: url('assets/img/bullet.png');
+	list-style-image: url('img/bullet.png');
 	padding-top: 5px;
 }
