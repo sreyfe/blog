@@ -1,0 +1,326 @@
+<HTML>
+	<head>
+		<meta charset="utf-8">
+		<title>Viewing Columbo at a Distance</title>
+		<link rel="stylesheet" href="../assets/stylesheet.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	</head>
+	<body>
+		<div class="text">
+			<pre class="klejb">
+			<a href="/" style="text-decoration: none">
+ __   ___  ___       _______       ___  _______   
+|/"| /  ")|"  |     /"     "|     |"  ||   _  "\  
+(: |/   / ||  |    (: ______)     ||  |(. |_)  :) 
+|    __/  |:  |     \/    |       |:  ||:     \/  
+(// _  \   \  |___  // ___)_   ___|  / (|  _  \\  
+|: | \  \ ( \_|:  \(:      "| /  :|_/ )|: |_)  :) 
+(__|  \__) \_______)\_______)(_______/ (_______/  
+			</a>
+			</pre>
+			<h1>Viewing Columbo at a Distance</h1>
+			<p>
+			Inspired by Taylor Arnold and Lauren Tilton’s <i>Distant Viewing:
+				Computational Exploration of Digital Images </i>, <a 
+				    href="https://weltliteratur.net/curb-your-enthusiasm-season-9-network-analysis/">
+				Frank Fischer's
+				network analysis of Curb</a>, and
+			the <a href="https://bsky.app/profile/columboscreens.bsky.social">Columbo
+				Screenshots BlueSky bot</a>,
+			I decided to take a look at the
+			colors of Columbo. 
+			</p>
+
+			<p>Firstly,
+			I wanted to be able to find
+			the Columbo frame with the average color closest to a
+			given color.
+			In order to do this, I first
+			got my hands
+			on a low-resolution (360p) rip
+			of the entirety of Columbo. Then, using the cv2 Python wrapper for
+			OpenCV, I iterated through every frame and recorded each frame’s
+			average red, green, and blue value (deleting the black bars at the 
+			top and bottom of the frames when necessary)
+			, along with the episode number,
+			season number, and frame count. The resulting Pandas DataFrame was
+			10,782,016 rows long, each row representing a frame, and the
+			resulting CSV weighed in at 1gb. Reasonably hefty.</p>
+
+			<p>This
+			process took about eight hours (I challenge
+			my dear friend/mortal enemy Siddha Mavuram to do it faster).
+			But once it was done, I was
+			pretty close to being able to color match Columbo frames. All I had
+			to do next was find a loss function. I settled on summed squared
+			error, i.e. finding the difference between the frames’ RGB values
+			and the desired RGB values, squaring them, and summing them. Then all
+			you need to do is find the frame with the lowest loss.</p>
+
+			<p>For
+			example, suppose I want to find the frame with the color #3a5133 (a
+			dark green). All I need to do
+			is calculate this loss for the ~11,000,000 frames (with Pandas NumPy
+			this actually takes no time at all), then sort the frames by
+			ascending loss and take the first. In this case, the frame with the
+			lowest loss is this one:</p><br>
+			<div style="text-align: center">
+
+				<figure>
+					<img src="/assets/img/columbo/green_03_3a5133_07_02_murder_under_glass_48865.png" alt="green 3a5133 07 02 murder under glass 48865"><br><br>
+					<figcaption><em>#3a5133 – Season 07 Episode 02 – </em>Murder Under Glass<em> – Frame 48865</em></figcaption>
+				</figure>
+				<br>
+			</div>
+
+			<p>A
+			nice bunch of bell peppers with a very attractive color.</p>
+
+			<p>Using
+			this color matching, you can produce color palettes of frames, like
+			the ones below.</p>
+			<div style="text-align:center">
+				<br><br><br>
+				<em>Greens</em>
+				<br><br>
+				<figure>
+					<img src="/assets/img/columbo/green_00_162113_02_04_dagger_of_the_mind_82219.png" alt="green 162113 02 04 dagger of the mind 82219"><br><br>
+					<figcaption><em>#162113 – Season 02 Episode 04 – </em>Dagger of the Mind<em> – Frame 82219</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/green_01_22301e_03_04_double_exposure_4290.png" alt="green 22301e 03 04 double exposure 4290"><br><br>
+					<figcaption><em>#22301e – Season 03 Episode 04 – </em>Double Exposure<em> – Frame 4290</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/green_02_2f3f29_10_08_butterfly_in_shades_of_grey_29757.png" alt="green 2f3f29 10 08 butterfly in shades of grey 29757"><br><br>
+					<figcaption><em>#2f3f29 – Season 10 Episode 08 – </em>Butterfly in Shades of Grey<em> – Frame 29757</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/green_03_3a5133_07_02_murder_under_glass_48865.png" alt="green 3a5133 07 02 murder under glass 48865"><br><br>
+					<figcaption><em>#3a5133 – Season 07 Episode 02 – </em>Murder Under Glass<em> – Frame 48865</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/green_04_485b42_05_03_identity_crisis_85034.png" alt="green 485b42 05 03 identity crisis 85034"><br><br>
+					<figcaption><em>#485b42 – Season 05 Episode 03 – </em>Identity Crisis<em> – Frame 85034</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/green_05_55684f_04_03_by_dawns_early_light_36220.png" alt="green 55684f 04 03 by dawns early light 36220"><br><br>
+					<figcaption><em>#55684f – Season 04 Episode 03 – </em>By Dawn's Early Light<em> – Frame 36220</em></figcaption>
+				</figure>
+				<br>
+			</div>
+			<div style="text-align:center">
+				<br><br><br>
+				<em>Muted Rainbow</em>
+				<br><br>
+				<figure>
+					<img src="/assets/img/columbo/muted_rainbow_00_8b0000_10_14_columbo_likes_the_night_life_157164.png"><br><br>
+					<figcaption><em>#8b0000 – Season 10 Episode 14 – </em>Columbo Likes the Night Life<em> – Frame 157164</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/muted_rainbow_01_ff8c00_02_07_the_most_dangerous_match_1137.png"><br><br>
+					<figcaption><em>#ff8c00 – Season 02 Episode 07 – </em>The Most Dangerous Match<em> – Frame 1137</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/muted_rainbow_02_cccc00_02_03_the_most_crucial_game_116812.png"><br><br>
+					<figcaption><em>#cccc00 – Season 02 Episode 03 – </em>The Most Crucial Game<em> – Frame 116812</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/muted_rainbow_03_006400_10_14_columbo_likes_the_night_life_28782.png"><br><br>
+					<figcaption><em>#006400 – Season 10 Episode 14 – </em>Columbo Likes the Night Life<em> – Frame 28782</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/muted_rainbow_04_00008b_02_07_the_most_dangerous_match_2104.png"><br><br>
+					<figcaption><em>#00008b – Season 02 Episode 07 – </em>The Most Dangerous Match<em> – Frame 2104</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/muted_rainbow_05_4b0082_10_14_columbo_likes_the_night_life_76194.png"><br><br>
+					<figcaption><em>#4b0082 – Season 10 Episode 14 – </em>Columbo Likes the Night Life<em> – Frame 76194</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/muted_rainbow_06_8b008b_00_01_prescription_murder_1300.png"><br><br>
+					<figcaption><em>#8b008b – Season 00 Episode 01 – </em>Prescription Murder<em> – Frame 1300</em></figcaption>
+				</figure>
+				<br>
+			</div>
+			<div style="text-align:center">
+				<br><br><br>
+				<em>Pastels</em>
+				<br><br>
+				<figure>
+					<img src="/assets/img/columbo/pastel_00_ffb3ba_01_06_short_fuse_30171.png"><br><br>
+					<figcaption><em>#ffb3ba – Season 01 Episode 06 – </em>Short Fuse<em> – Frame 30171</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/pastel_01_ffdfba_01_06_short_fuse_131438.png"><br><br>
+					<figcaption><em>#ffdfba – Season 01 Episode 06 – </em>Short Fuse<em> – Frame 131438</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/pastel_02_ffffba_09_02_columbo_cries_wolf_4437.png"><br><br>
+					<figcaption><em>#ffffba – Season 09 Episode 02 – </em>Columbo Cries Wolf<em> – Frame 4437</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/pastel_03_baffc9_02_03_the_most_crucial_game_20353.png"><br><br>
+					<figcaption><em>#baffc9 – Season 02 Episode 03 – </em>The Most Crucial Game<em> – Frame 20353</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/pastel_04_bae1ff_10_14_columbo_likes_the_night_life_76917.png"><br><br>
+					<figcaption><em>#bae1ff – Season 10 Episode 14 – </em>Columbo Likes the Night Life<em> – Frame 76917</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/pastel_05_e0bbe4_02_07_the_most_dangerous_match_29120.png"><br><br>
+					<figcaption><em>#e0bbe4 – Season 02 Episode 07 – </em>The Most Dangerous Match<em> – Frame 29120</em></figcaption>
+				</figure>
+				<br>
+			</div>
+			<div style="text-align:center">
+				<br><br><br>
+				<em>Rainbow</em>
+				<br><br>
+				<figure>
+					<img src="/assets/img/columbo/rainbow_00_ff0000_00_02_ransom_for_a_dead_man_99188.png"><br><br>
+					<figcaption><em>#ff0000 – Season 00 Episode 02 – </em>Ransom for a Dead Man<em> – Frame 99188</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/rainbow_01_ff7f00_02_07_the_most_dangerous_match_1137.png"><br><br>
+					<figcaption><em>#ff7f00 – Season 02 Episode 07 – </em>The Most Dangerous Match<em> – Frame 1137</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/rainbow_02_ffff00_02_03_the_most_crucial_game_116807.png"><br><br>
+					<figcaption><em>#ffff00 – Season 02 Episode 03 – </em>The Most Crucial Game<em> – Frame 116807</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/rainbow_03_00ff00_02_07_the_most_dangerous_match_1680.png"><br><br>
+					<figcaption><em>#00ff00 – Season 02 Episode 07 – </em>The Most Dangerous Match<em> – Frame 1680</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/rainbow_04_0000ff_02_07_the_most_dangerous_match_1981.png"><br><br>
+					<figcaption><em>#0000ff – Season 02 Episode 07 – </em>The Most Dangerous Match<em> – Frame 1981</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/rainbow_05_4b0082_10_14_columbo_likes_the_night_life_76194.png"><br><br>
+					<figcaption><em>#4b0082 – Season 10 Episode 14 – </em>Columbo Likes the Night Life<em> – Frame 76194</em></figcaption>
+				</figure>
+				<br>
+				<figure>
+					<img src="/assets/img/columbo/rainbow_06_9400d3_02_07_the_most_dangerous_match_2571.png"><br><br>
+					<figcaption><em>#9400d3 – Season 02 Episode 07 – </em>The Most Dangerous Match<em> – Frame 2571</em></figcaption>
+				</figure>
+				<br>
+			</div>
+
+
+			<p>Four
+			of the seven colors from the <em>Rainbow</em> pallete come 
+			from the same episode. S02E07 <i>The
+				Most Dangerous Match</i> begins with
+			a dream sequence with a shifting, rainbow strobe effect, meaning that
+			if you’re looking for highly saturated, monocolor Columbo frames,
+			its your best bet nine times out of ten.</p>
+
+			<p>To
+			see just how crazy this strobe effect is in terms of color value
+			saturation, take a look at the first five minutes of this episode
+			compared to the first five minutes of the episodes that come directly
+			before and after.</p>
+
+
+			<img src="/assets/img/columbo/most_dangerous_match_colors_chart_2.png" alt="most dangerous match chart">
+
+			<img src="/assets/img/columbo/stitch_in_crime_colors_chart.png" alt="stitch in crime chart">
+
+			<img src="/assets/img/columbo/double_shock_colors_chart.png" alt="double shock chart">
+			<p>Cool
+			as these frames are, they are outliers, and I got to wondering what
+			the general color distribution of Columbo looks like. To take a look
+			at it, I took a sample of 1,000 frames and visualized each of them as
+			a point of that color in 3D space, with their RGB values as xyz 
+			coordinates. This is that general distribution:</p>
+
+
+			<img src="/assets/img/columbo/general_sample.gif" alt="general sample">
+
+
+			<p>As
+			you can see, the xyz coordinates tend to increase and decrease together,
+			clustering around the center diagonal of the cube, and producing
+			colors that are, on average, pretty gray, although we get some
+			colorful scallion-style divergence at the top. The average color
+			(visualized below) is a dark gray.</p>
+
+			<img src="/assets/img/columbo/average.gif" alt="average">
+
+			<p>But
+			the outliers really are the most fun, and I wanted to see them in
+			this format too. To this end, I added a boolean column (“outlier”)
+			to combined data frame, which was true when a given frame had a
+			zscore of three or higher, and false otherwise. Sampling from the
+			outliers produces this visualization:</p>
+
+			<img src="/assets/img/columbo/outlier.gif" alt="outlier">
+
+			<p>And
+			sampling 500 from each (outlier and non-outlier) gives a broad (if
+			quantitatively inaccurate) account of the colors of Columbo:</p>
+
+			<img src="/assets/img/columbo/stratified.gif" alt="stratified">
+
+			<p>In
+			general, it seems the average color palette of Columbo is muted and
+			rather dark. The figure below illustrates the average RGB values per 
+			episode throughout the series.
+			The colors seem to be generally the same over the course
+			of the series, although season 8 is significantly darker than the rest.
+			This also happens to be when (at least in my rip) the format of the
+			show switches from 4:3 to 16:9.
+			The first episode of season 8 (Columbo Goes to the Guillotine) is just
+			about as dark as the show gets, and we don't return to normal until 
+			season 9, where things actually seem to be a little brighter than 
+			usual. It seems there was a production change between seasons 7 and 8
+			(let's call it "Columbo goes dark"), and then a palette change between
+			8 and 9. What happened here?
+			<div style="text-align:center">
+				<figure>
+					<img src="/assets/img/columbo/dark_blue_172036_08_01_columbo_goes_to_the_guillotine_18901.png"><br><br>
+					<figcaption><em>#172036 – Season 08 Episode 01 – </em>Columbo Goes to the Guillotine<em> – Frame 18901</em></figcaption>
+				</figure>
+				<br>
+			</div>
+			<p>I
+			was also curious to see how colors change over the course of the
+			episode. Across episodes, I took the average color of each frame, and
+			came up with the below graph. The divot at around ten minutes is
+			interesting, but I don’t know how to explain it. My only guess is
+			that around 10 minutes, the murders usually take place… An avenue
+			for future research.</p>
+			<img src="/assets/img/columbo/average_color_per_frame.png" alt="average colors per frame">
+
+			<p>Perhaps
+			we learned a little bit more about Columbo? Maybe, maybe not. Anyway,
+			as a finale, here is Columbo made out of frames from Columbo:</p>
+
+			<img src="/assets/img/columbo/c_of_c_scaled.jpg" alt="columbo of columbo">
+		</div>
+	</body>
+</HTML>
