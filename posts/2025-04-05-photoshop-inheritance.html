@@ -18,7 +18,7 @@
 (__|  \__) \_______)\_______)(_______/ (_______/  
 			</a>
 			</pre>
-			<h1>Geneologies of Inheritance in Photoshop 1.0.1</h1>
+			<h1>Genealogies of Inheritance in Photoshop 1.0.1</h1>
 			<p>This summer, I picked up editors Bajohr and Krajewski's really excellent volume
 			<em><a href="https://www.matthes-seitz-berlin.de/buch/quellcodekritik.html">Quellcodekritik:
 					Zur Philologie von Algorithmen</em></a> (<em>Source Code Critique: On the
@@ -45,9 +45,9 @@
 			relationships of objects in the code. Maybe this was because I read Galloway's
 			<a href="https://www.jstor.org/stable/10.1086/668529"><em>The Poverty of Philosophy</em></a>
 			not long before, which also deals with inheritance and object-orientedness in relation 
-			to contemporary philosophy. In the Photoshop code, Heilmann finds 12 separate object geneologies, each tracing back
+			to contemporary philosophy. In the Photoshop code, Heilmann finds 12 separate object genealogies, each tracing back
 			to an object from MacApp, "the then-official framework which Apple provided for the development
-			of Macintosh programs with Object Pascal" (122). As laconic as these geneologies are, they 
+			of Macintosh programs with Object Pascal" (122). As laconic as these genealogies are, they 
 			do give us some insight into the architecture of the program. One might ask, as Heilmann suggests:
 			how many parents does each object have? What are the rudimentary commands, which Photoshop implements?
 			What are the frames and perspectives with which Photoshop is projected on the user's screen?</p>
@@ -60,7 +60,7 @@
 			and, following Heilmann's example (though using Python instead of Bash), extracted all of its object
 			definitions, saving the parents and children in a dictionary. I then iterated through this dictionary, and
 			using the Python library <a href="https://networkx.org/">NetworkX</a>, produced a directed graph of
-			all the geneaologies. As Heilmann points out, there are actually 12 separate geneologies, i.e. 12 
+			all the geneaologies. As Heilmann points out, there are actually 12 separate genealogies, i.e. 12 
 			disconnected subgraphs in the big graph. I separated these out, and started visualizing using 
 			matplotlib. This worked reasonably well for the smaller graphs, but the larger graphs (especially
 			<em>TCommand</em>) had so much overlap that they were illegible. Eventually, I found out that you can export
@@ -108,7 +108,7 @@
 			graphs. Some objects, like <em>TStdPrintHandler</em>, are the parent of only one
 			other object, whereas others, like <em>TCommand</em>, produce six generations of offspring.
 			If we wanted to go really far back, we'd have to include all the object declarations
-			from MacApp. I suspect then we'd see all of these geneologies reunited, in a sort of 
+			from MacApp. I suspect then we'd see all of these genealogies reunited, in a sort of 
 			Object Pascal ingathering of the exiles. We will have to wait on that.</p>
 		</div>
 	</body>
